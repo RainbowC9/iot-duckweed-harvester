@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Duckweed Harvesting Dashboard</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+<body>
+    <h1>🌿 Duckweed Harvesting Dashboard</h1>
+    <div class="container">
+        <!-- Duckweed Coverage -->
+        <div class="card">
+            <h2>Duckweed Coverage</h2>
+            <p>
+                <strong>Current:</strong>
+                <span id="coverage-value">
+                    {{ coverage }}%
+                </span>
+            </p>
+        </div>
+
+        <!-- Recent Image -->
+        <div class="card">
+            <h2>Recent Image</h2>
+            {% if logs and 'image' in logs[-1] %}
+                <img
+                    id="uploaded-image"
+                    src="{{ url_for(
+                        'static',
+                        filename=logs[-1]['image']
+                    ) }}"
+                    alt="Recent Duckweed Image"
+                >
+            {% else %}
+                <p>
+                    No image uploaded yet.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="log-container">
+        <h3>Activity Log</h3>
+        <ul>
+            {% for log in logs %}
+                <li>
+                    <strong>
+                        {{ log.timestamp }}
+                    </strong>
+                    <br>
+                    {% if log.coverage is defined %}
+                        Coverage updated to
+                        <strong>
+                            {{ log.coverage }}%
+                        </strong>
+                    {% elif log.image is defined %}
+                        Image received:
+                        <a
+                            href="{{ url_for(
+                                'static',
+                                filename=log.image
+                            ) }}"
+                            target="_blank"
+                        >
+                            View Image
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        &copy; {{ year }}
+        Duckweed Monitoring System
+    </footer>
+</body>
+</html>
