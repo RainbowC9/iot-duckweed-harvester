@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+
+# Environment variables / secrets
+.env
+.env.*
+config.h
+secrets.h
+credentials.h
+
+# Flask
+instance/
+.webassets-cache/
+
+# Uploaded/generated images
+web-server/static/uploads/*
+
+# Keep upload directory if needed
+!web-server/static/uploads/.gitkeep
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Arduino temporary files
+*.hex
+*.elf
+
+# Logs
+*.log
